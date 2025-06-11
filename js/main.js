@@ -101,7 +101,7 @@ do {
 
     case 4:
       alert(
-        "Gracias por visitarnos + " +
+        "Gracias por visitarnos," +
           userName +
           " en DragonCards Z!" +
           "\n" +
