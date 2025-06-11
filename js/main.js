@@ -20,6 +20,7 @@ var cardsItems = 11;
 var userName = "";
 const cardsBought = [];
 const cardsBoughtQuantity = [];
+var cardsItemsBought = 0;
 
 //Inicio
 getUserName();
@@ -52,7 +53,10 @@ do {
         prompt("¿Cuántas cartas deseas comprar de " + cards[cardIndex] + "?")
       );
       console.log(
-        "¿Cuántas cartas deseas comprar de " + cards[cardIndex] + "? : " + quantity
+        "¿Cuántas cartas deseas comprar de " +
+          cards[cardIndex] +
+          "? : " +
+          quantity
       );
 
       if (quantity <= 0) {
@@ -91,6 +95,11 @@ do {
       break;
 
     case 3:
+      showCardsBought();
+
+      break;
+
+    case 4:
       alert(
         "Gracias por visitarnos + " +
           userName +
@@ -98,12 +107,20 @@ do {
           "\n" +
           "¡Hasta la próxima guerrero!"
       );
+      console.log(
+        "Gracias por visitarnos, " +
+          userName +
+          " en DragonCards Z!" +
+          "\n" +
+          "¡Hasta la próxima guerrero!"
+      );
+
       break;
 
     default:
       alert("Opción no válida. Por favor, intenta de nuevo.");
   }
-} while (menuOption !== 3);
+} while (menuOption !== 4);
 
 //Metodos
 function getUserName() {
@@ -134,15 +151,26 @@ function selectMenuOption() {
         " Menu DragonCards Z\n" +
           "1. Comprar cartas\n" +
           "2. Añadir un nuevo tipo de carta\n" +
-          "3. Salir\n" +
-          "Por favor, elige una opción (1-3):"
+          "3. Ver cartas compradas\n" +
+          "4. Salir\n" +
+          "Por favor, elige una opción (1-4):"
       )
     );
 
-    if (menuValidOption < 1 || menuValidOption > 3) {
-      alert("Opción no válida. Por favor, elige una opción entre 1 y 3.");
+    console.log(
+      "Menu DragonCards Z" +
+        "\n1. Comprar cartas" +
+        "\n2. Añadir un nuevo tipo de carta" +
+        "\n3. Ver cartas compradas" +
+        "\n4. Salir" +
+        "\nPor favor, elige una opción (1-4):"
+    );
+    console.log("Opción seleccionada: " + menuValidOption);
+
+    if (menuValidOption < 1 || menuValidOption > 4) {
+      alert("Opción no válida. Por favor, elige una opción entre 1 y 4.");
     }
-  } while (menuValidOption < 1 || menuValidOption > 3);
+  } while (menuValidOption < 1 || menuValidOption > 4);
 
   return menuValidOption;
 }
@@ -191,7 +219,17 @@ function buyDragonCard(cardIndex, quantity) {
   cardsQuantity[cardIndex] -= quantity;
   cardsBought.push(cards[cardIndex]);
   cardsBoughtQuantity.push(quantity);
-  alert("Compra realizada: " + quantity + " carta(s) de " + cards[cardIndex]);
+  cardsItemsBought++;
+
+  alert(
+    "Compra realizada: " +
+      quantity +
+      " carta(s) de " +
+      cards[cardIndex] +
+      " por un total de " +
+      cardsPrice[cardIndex] * quantity +
+      " monedas."
+  );
   console.log(
     "Compra realizada: " +
       quantity +
@@ -206,8 +244,38 @@ function buyDragonCard(cardIndex, quantity) {
 function showCartas() {
   let message = "Cartas disponibles:\n";
   for (let i = 0; i < cardsItems; i++) {
-    message += (i + 1) + ". " + cards[i] + " - Precio: " + cardsPrice[i] + " - Cantidad: " + cardsQuantity[i] + "\n";
+    message +=
+      i +
+      1 +
+      ". " +
+      cards[i] +
+      " - Precio: " +
+      cardsPrice[i] +
+      " - Cantidad: " +
+      cardsQuantity[i] +
+      "\n";
   }
   console.log(message);
   return message;
+}
+
+function showCardsBought() {
+  if (cardsItemsBought === 0) {
+    alert("No has comprado ninguna carta.");
+    return;
+  }
+
+  let message = "Cartas compradas:\n";
+  for (let i = 0; i < cardsItemsBought; i++) {
+    message +=
+      i +
+      1 +
+      ". " +
+      cardsBought[i] +
+      " - Cantidad: " +
+      cardsBoughtQuantity[i] +
+      "\n";
+  }
+  alert(message);
+  console.log(message);
 }
