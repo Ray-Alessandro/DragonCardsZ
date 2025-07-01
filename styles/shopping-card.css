@@ -4,8 +4,23 @@
     box-sizing: border-box;
 }
 
-.navbar{
+.navbar {
     background: black;
+}
+
+.nav-item {
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+    background-color: #333;
+}
+
+.nav-item:active {
+    background-color: #555;
+    color: white;
+    scale: 0.95;
 }
 
 .navbar-logo {

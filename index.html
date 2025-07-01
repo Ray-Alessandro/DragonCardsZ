@@ -1,64 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DragonCardsZ | Inicio </title>
 
-    <!-- Favicon -->
-    <link rel="icon" href="./assets/img/logo-dcz.ico" type="image/x-icon" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DragonCardsZ | Inicio</title>
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
-      crossorigin="anonymous"
-    />
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/img/logo-dcz.ico" type="image/x-icon" />
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="./styles/main.css" />
-    
-    <!-- JS -->
-    <script defer src="./js/main.js"></script>
-    
-  </head>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
 
-  <body>
-    <!-- Navbar Boostrap -->
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-          <a class="navbar-brand" href="./index.html">
-            <img src="./assets/img/logo-dcz.png" alt="Logo DragonCardsZ" class="navbar-logo" />
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item"><a class="nav-link active" aria-current="page" href="./index.html">Inicio</a></li>
-              <li class="nav-item"><a class="nav-link" href="./pages/shopping-card.html">Mis Compras</a></li>
-            </ul>
-          </div>
+  <!-- Styles -->
+  <link rel="stylesheet" href="./styles/main.css" />
+
+  <!-- JS -->
+  <script defer src="./js/main.js"></script>
+</head>
+
+<body>
+  <!-- Navbar Boostrap -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="./index.html">
+          <img src="./assets/img/logo-dcz.png" alt="Logo DragonCardsZ" class="navbar-logo" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="./index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./pages/shopping-card.html">Mis Compras</a>
+            </li>
+          </ul>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
+  </header>
 
-    <main class="home-container">
+  <main class="home-container">
 
-    </main>
+    <!-- Hero Section -->
+    <section class="hero text-center text-light py-5 bg-dark">
+      <div class="container">
+        <h1 class="fw-bold hero-title">¡Bienvenido a DragonCardsZ!</h1>
+        <p class="hero-subtitle mt-3">
+          Colecciona, comercia y domina el universo de cartas inspirado en
+          Dragon Ball Super
+        </p>
+      </div>
+    </section>
 
-  </body>
+    <!-- Week Cards Section -->
+<!-- Week Cards Section -->
+<section class="week-cards-container py-5 bg-light">
+  <h2 class="text-center mb-4 text-dark">🔥 Cartas Semanales</h2>
+
+  <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner" id="carousel-inner">
+    </div>
+
+    <!-- Flechas -->
+    <button class="carousel-control carousel-control-prev bg-dark" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control carousel-control-next bg-dark" type="button" data-bs-target="#carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+  </div>
+</section>
+
+  </main>
+</body>
+
 </html>
