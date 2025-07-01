@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar{
+    background: black;
+}
+
+.navbar-logo {
+    align-items: center;
+    width: 120px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+}

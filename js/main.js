@@ -1,281 +1,159 @@
-//Variables
-var menuOption = 0;
+//Reference Page: https://www.dbs-cardgame.com/fw/en/cardlist 
 const cards = [
-  "Goku",
-  "Vegeta",
-  "Piccolo",
-  "Frieza",
-  "Cell",
-  "Majin Buu",
-  "Trunks",
-  "Gohan",
-  "Bulma",
-  "Krillin",
-  "Yamcha",
+  {
+    id: 1,
+    name: "Android 16",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-002.webp",
+    power: 20000,
+    number: "SB01-002",
+    cost: 2,
+    price: 85,
+  },
+  {
+    id: 2,
+    name: "Android 17",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-003.webp",
+    power: 15000,
+    number: "SB01-003",
+    cost: 2,
+    price: 80,
+  },
+  {
+    id: 3,
+    name: "Android 18",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-004.webp",
+    power: 5000,
+    number: "SB01-004",
+    cost: 1,
+    price: 50,
+  },
+  {
+    id: 4,
+    name: "Android 18",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-005.webp",
+    power: 20000,
+    number: "SB01-005",
+    cost: 2,
+    price: 85,
+  },
+  {
+    id: 5,
+    name: "Android 19",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-006.webp",
+    power: 20000,
+    number: "SB01-006",
+    cost: 3,
+    price: 105,
+  },
+  {
+    id: 6,
+    name: "Android 19/Android 20",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-007.webp",
+    power: 20000,
+    number: "SB01-007",
+    cost: 2,
+    price: 75,
+  },
+  {
+    id: 7,
+    name: "Android 20",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-008.webp",
+    power: 5000,
+    number: "SB01-008",
+    cost: 1,
+    price: 60,
+  },
+  {
+    id: 8,
+    name: "Cell",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-009.webp",
+    power: 15000,
+    number: "SB01-009",
+    cost: 1,
+    price: 70,
+  },
+  {
+    id: 9,
+    name: "Cell",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-010.webp",
+    power: 25000,
+    number: "SB01-010",
+    cost: 4,
+    price: 150,
+  },
+  {
+    id: 10,
+    name: "Cell",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-011.webp",
+    power: 30000,
+    number: "SB01-011",
+    cost: 5,
+    price: 165,
+  },
+  {
+    id: 11,
+    name: "Cell",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-012.webp",
+    power: 30000,
+    number: "SB01-012",
+    cost: 5,
+    price: 170,
+  },
+  {
+    id: 12,
+    name: "Cell Jr.",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-013.webp",
+    power: 15000,
+    number: "SB01-013",
+    cost: 3,
+    price: 105,
+  },
+  {
+    id: 13,
+    name: "Great Ape Son Goku",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-017.webp",
+    power: 25000,
+    number: "SB01-017",
+    cost: 4,
+    price: 150,
+  },
+  {
+    id: 14,
+    name: "Son Goku : Childhood",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-018.webp",
+    power: 25000,
+    number: "SB01-018",
+    cost: 3,
+    price: 105,
+  },
+  {
+    id: 15,
+    name: "Son Goku",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-019.webp",
+    power: 20000,
+    number: "SB01-019",
+    cost: 3,
+    price: 120,
+  },
+  {
+    id: 16,
+    name: "Vegeta",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-025.webp",
+    power: 25000,
+    number: "SB01-025",
+    cost: 3,
+    price: 120,
+  },
+  {
+    id: 17,
+    name: "Nappa",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-024.webp",
+    power: 5000,
+    number: "SB01-024",
+    cost: 1,
+    price: 50,
+  },
 ];
-const cardsPrice = [100, 120, 80, 60, 90, 110, 70, 130, 150, 40, 200];
-const cardsQuantity = [10, 5, 8, 3, 2, 4, 6, 7, 9, 1, 15];
-var cardsItems = 11;
 
-var userName = "";
-const cardsBought = [];
-const cardsBoughtQuantity = [];
-var cardsItemsBought = 0;
 
-//Inicio
-getUserName();
 
-//Menu
-do {
-  menuOption = selectMenuOption();
-
-  switch (menuOption) {
-    case 1:
-      //Comprar Cartas
-      showCartas();
-      let cardIndex =
-        parseInt(
-          prompt(
-            "Selecciona el número de la carta que deseas comprar (1-" +
-              cardsItems +
-              "):" +
-              "\n" +
-              showCartas()
-          )
-        ) - 1;
-
-      if (cardIndex < 0 || cardIndex >= cardsItems) {
-        alert("Índice de carta no válido. Por favor, intenta de nuevo.");
-        break;
-      }
-
-      let quantity = parseInt(
-        prompt("¿Cuántas cartas deseas comprar de " + cards[cardIndex] + "?")
-      );
-      console.log(
-        "¿Cuántas cartas deseas comprar de " +
-          cards[cardIndex] +
-          "? : " +
-          quantity
-      );
-
-      if (quantity <= 0) {
-        alert("La cantidad debe ser mayor que 0. Inténtalo de nuevo.");
-        break;
-      } else if (quantity > cardsQuantity[cardIndex]) {
-        alert(
-          "No hay suficiente cantidad de esta carta. Cantidad disponible: " +
-            cardsQuantity[cardIndex]
-        );
-        break;
-      }
-
-      buyDragonCard(cardIndex, quantity);
-
-      break;
-
-    case 2:
-      //Añadir un nuevo tipo de carta
-      console.log("Añadir un nuevo tipo de carta");
-      let newCardName = prompt("Introduce el nombre de la nueva carta:");
-      console.log("Introduce el nombre de la nueva carta:" + newCardName);
-
-      let newCardPrice = parseInt(
-        prompt("Introduce el precio de la nueva carta:")
-      );
-      console.log("Introduce el precio de la nueva carta:" + newCardPrice);
-
-      let newCardQuantity = parseInt(
-        prompt("Introduce la cantidad de la nueva carta:")
-      );
-      console.log("Introduce la cantidad de la nueva carta:" + newCardQuantity);
-
-      addDragonCard(newCardName, newCardPrice, newCardQuantity);
-
-      break;
-
-    case 3:
-      showCardsBought();
-
-      break;
-
-    case 4:
-      alert(
-        "Gracias por visitarnos," +
-          userName +
-          " en DragonCards Z!" +
-          "\n" +
-          "¡Hasta la próxima guerrero!"
-      );
-      console.log(
-        "Gracias por visitarnos, " +
-          userName +
-          " en DragonCards Z!" +
-          "\n" +
-          "¡Hasta la próxima guerrero!"
-      );
-
-      break;
-
-    default:
-      alert("Opción no válida. Por favor, intenta de nuevo.");
-  }
-} while (menuOption !== 4);
-
-//Metodos
-function getUserName() {
-  userName = prompt(
-    "Bienvenido a DragonCards Z\n" +
-      "Por favor, introduce tu nombre de usuario:"
-  );
-  if (userName === "") {
-    alert(
-      "El nombre de usuario no puede estar vacío. Por favor, inténtalo de nuevo."
-    );
-    getUserName();
-  } else {
-    alert(`Bienvenido, ${userName}!`);
-    console.log(`Gracias por visitarnos, ${userName}!`);
-    console.log(
-      "Recuerda que puedes comprar cartas de Dragon Ball Z y añadir nuevas cartas al catálogo."
-    );
-  }
-}
-
-function selectMenuOption() {
-  var menuValidOption = 0;
-
-  do {
-    menuValidOption = parseInt(
-      prompt(
-        " Menu DragonCards Z\n" +
-          "1. Comprar cartas\n" +
-          "2. Añadir un nuevo tipo de carta\n" +
-          "3. Ver cartas compradas\n" +
-          "4. Salir\n" +
-          "Por favor, elige una opción (1-4):"
-      )
-    );
-
-    console.log(
-      "Menu DragonCards Z" +
-        "\n1. Comprar cartas" +
-        "\n2. Añadir un nuevo tipo de carta" +
-        "\n3. Ver cartas compradas" +
-        "\n4. Salir" +
-        "\nPor favor, elige una opción (1-4):"
-    );
-    console.log("Opción seleccionada: " + menuValidOption);
-
-    if (menuValidOption < 1 || menuValidOption > 4) {
-      alert("Opción no válida. Por favor, elige una opción entre 1 y 4.");
-    }
-  } while (menuValidOption < 1 || menuValidOption > 4);
-
-  return menuValidOption;
-}
-
-// Metodos Principales
-function addDragonCard(cardName, cardPrice, cardQuantity) {
-  cards.push(cardName);
-  cardsPrice.push(cardPrice);
-  cardsQuantity.push(cardQuantity);
-  cardsItems++;
-
-  console.log(
-    "Carta " +
-      cardName +
-      "añadida con éxito." +
-      "\n" +
-      "Precio: " +
-      cardPrice +
-      ", Cantidad: " +
-      cardQuantity
-  );
-
-  alert(
-    "Carta " +
-      cardName +
-      " añadida con éxito." +
-      "\n" +
-      "Precio: " +
-      cardPrice +
-      ", Cantidad: " +
-      cardQuantity
-  );
-}
-
-function buyDragonCard(cardIndex, quantity) {
-  if (cardIndex < 0 || cardIndex >= cardsItems) {
-    alert("Índice de carta no válido.");
-    return;
-  }
-
-  if (cardsQuantity[cardIndex] < quantity) {
-    alert("No hay suficiente cantidad de esta carta.");
-    return;
-  }
-
-  cardsQuantity[cardIndex] -= quantity;
-  cardsBought.push(cards[cardIndex]);
-  cardsBoughtQuantity.push(quantity);
-  cardsItemsBought++;
-
-  alert(
-    "Compra realizada: " +
-      quantity +
-      " carta(s) de " +
-      cards[cardIndex] +
-      " por un total de " +
-      cardsPrice[cardIndex] * quantity +
-      " monedas."
-  );
-  console.log(
-    "Compra realizada: " +
-      quantity +
-      " carta(s) de " +
-      cards[cardIndex] +
-      " por un total de " +
-      cardsPrice[cardIndex] * quantity +
-      " monedas."
-  );
-}
-
-function showCartas() {
-  let message = "Cartas disponibles:\n";
-  for (let i = 0; i < cardsItems; i++) {
-    message +=
-      i +
-      1 +
-      ". " +
-      cards[i] +
-      " - Precio: " +
-      cardsPrice[i] +
-      " - Cantidad: " +
-      cardsQuantity[i] +
-      "\n";
-  }
-  console.log(message);
-  return message;
-}
-
-function showCardsBought() {
-  if (cardsItemsBought === 0) {
-    alert("No has comprado ninguna carta.");
-    return;
-  }
-
-  let message = "Cartas compradas:\n";
-  for (let i = 0; i < cardsItemsBought; i++) {
-    message +=
-      i +
-      1 +
-      ". " +
-      cardsBought[i] +
-      " - Cantidad: " +
-      cardsBoughtQuantity[i] +
-      "\n";
-  }
-  alert(message);
-  console.log(message);
-}
