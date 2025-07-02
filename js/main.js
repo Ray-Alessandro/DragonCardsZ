@@ -255,17 +255,7 @@ function addCardToShoppingCart(cardObject, quantity) {
   if (!currentShoppingCart) {
     currentShoppingCart = [];
 
-    currentShoppingCart.push({
-      id: cardObject.id,
-      name: cardObject.name,
-      image: cardObject.image,
-      power: cardObject.power,
-      number: cardObject.number,
-      cost: cardObject.cost,
-      price: cardObject.price,
-      quantity: quantity
-    }
-    );
+    currentShoppingCart.push(buildCartItem(cardObject, quantity));
   }
   else {
     const existingCardIndex = currentShoppingCart.findIndex(item => item.id === cardObject.id);
@@ -274,19 +264,23 @@ function addCardToShoppingCart(cardObject, quantity) {
       currentShoppingCart[existingCardIndex].quantity += quantity;
     }
     else {
-      currentShoppingCart.push({
-        id: cardObject.id,
-        name: cardObject.name,
-        image: cardObject.image,
-        power: cardObject.power,
-        number: cardObject.number,
-        cost: cardObject.cost,
-        price: cardObject.price,
-        quantity: quantity
-      });
+      currentShoppingCart.push(buildCartItem(cardObject, quantity));
     }
   }
 
   localStorage.setItem("shoppingCart", JSON.stringify(currentShoppingCart));
   console.log("Carrito de compras actualizado:", currentShoppingCart);
+}
+
+function buildCartItem(card, quantity) {
+  return {
+    id: card.id,
+    name: card.name,
+    image: card.image,
+    power: card.power,
+    number: card.number,
+    cost: card.cost,
+    price: card.price,
+    quantity: quantity
+  }
 }
