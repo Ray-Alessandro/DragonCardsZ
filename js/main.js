@@ -78,7 +78,7 @@ const cards = [
     number: "SB01-009",
     cost: 1,
     price: 70,
-    is_weekly: true,
+    is_weekly: false,
   },
   {
     id: 9,
@@ -143,9 +143,9 @@ const cards = [
   {
     id: 15,
     name: "Son Goku",
-    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-019.webp",
+    image: "https://www.dbs-cardgame.com/fw/images/cards/card/en/SB01-023.webp",
     power: 20000,
-    number: "SB01-019",
+    number: "SB01-023",
     cost: 3,
     price: 120,
     is_weekly: true,
@@ -176,24 +176,21 @@ const weeklyCards = cards.filter((card) => card.is_weekly);
 
 let caurouselCards = document.getElementById("carousel-inner");
 
-weeklyCards.forEach((card, index) => {
-  let cardItem = document.createElement("div");
-  cardItem.className = `carousel-item ${index === 0 ? "active" : ""}`;
+function renderWeeklyCards(cards) {
+  cards.forEach((card, index) => {
+    let cardItem = document.createElement("div");
+    cardItem.className = `carousel-item ${index === 0 ? "active" : ""}`;
 
-  cardItem.innerHTML = `
+    cardItem.innerHTML = `
     <div class="row justify-content-center">
       <div class="col-sm-8 col-md-6 col-lg-4">
         <div class="card h-100 shadow">
-          <img src="${card.image}" class="card-img mt-4" alt="${
-    card.name
-  } Picture Card"/>
+          <img src="${card.image}" class="card-img mt-4" alt="${card.name} Picture Card"/>
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">${card.name}</h5>
-            <p class="card-text mb-1">Poder: <strong>${card.power.toLocaleString()}</strong></p>
+            <p class="card-text mb-1 card-power">Poder: <strong>${card.power.toLocaleString()}</strong></p>
             <p class="card-text mb-1">Costo: <strong>${card.cost}</strong></p>
-            <p class="card-text mb-3 text-success">Precio: <strong>S/ ${
-              card.price
-            }</strong></p>
+            <p class="card-text mb-3 text-success card-price">Precio: <strong>S/ ${card.price}</strong></p>
 
             <!-- Contador -->
             <div class="counter d-flex mb-3">
@@ -203,36 +200,93 @@ weeklyCards.forEach((card, index) => {
             </div>
 
             <!-- Botón -->
-            <button class="btn card-add-btn btn-primary mt-auto">Agregar al carrito</button>
+            <button class="btn card-add-btn btn-primary mt-auto" id="${card.id}">Añadir al carrito</button>
           </div>
         </div>
       </div>
     </div>`;
 
-  caurouselCards.appendChild(cardItem);
+    caurouselCards.appendChild(cardItem);
 
-  addCardEvent(cardItem);
-});
+    addCardEvent(cardItem);
+  });
+}
+
+renderWeeklyCards(weeklyCards);
 
 function addCardEvent(cardElement) {
-  const plusBtn = cardElement.querySelector(".card-plus-btn");
-  const minusBtn = cardElement.querySelector(".card-minus-btn");
-  const quantityCard = cardElement.querySelector(".quantity");
-  const addToCartBtn = cardElement.querySelector(".card-add-btn");
-  const cardName = cardElement.querySelector(".card-title").textContent;
+  let plusBtn = cardElement.querySelector(".card-plus-btn");
+  let minusBtn = cardElement.querySelector(".card-minus-btn");
+  let quantityCard = cardElement.querySelector(".quantity");
+  let addToCartBtn = cardElement.querySelector(".card-add-btn");
 
   plusBtn.onclick = () => {
     quantityCard.value = parseInt(quantityCard.value) + 1;
-  };
+  }
 
   minusBtn.onclick = () => {
     if (parseInt(quantityCard.value) > 1) {
       quantityCard.value = parseInt(quantityCard.value) - 1;
     }
-  };
+  }
 
-  addToCartBtn.addEventListener("click", () => {
-    const cantidad = parseInt(quantityCard.value);
-    console.log(`🛒 Agregado: ${cardName} — Cantidad: ${cantidad}`);
-  });
+  addToCartBtn.onclick = (e) => {
+    let cardId = e.currentTarget.id;
+    console.log(`Añadiendo carta con ID: ${cardId} al carrito`);
+
+    const selectedCard = weeklyCards.find((card) => card.id === parseInt(cardId));
+
+    if (selectedCard) {
+      const quantity = parseInt(quantityCard.value);
+      addCardToShoppingCart(selectedCard, quantity);
+      quantityCard.value = 1;
+      console.log(`Carta añadida: ${selectedCard.name}, Cantidad: ${quantity}`);
+    }
+    else {
+      console.error(`Carta con ID: ${cardId} no encontrada`);
+    }
+  }
+}
+
+function addCardToShoppingCart(cardObject, quantity) {
+  let currentShoppingCart = localStorage.getItem("shoppingCart");
+  currentShoppingCart = JSON.parse(currentShoppingCart);
+
+  if (!currentShoppingCart) {
+    currentShoppingCart = [];
+
+    currentShoppingCart.push({
+      id: cardObject.id,
+      name: cardObject.name,
+      image: cardObject.image,
+      power: cardObject.power,
+      number: cardObject.number,
+      cost: cardObject.cost,
+      price: cardObject.price,
+      quantity: quantity
+    }
+    );
+  }
+  else {
+    const existingCardIndex = currentShoppingCart.findIndex(item => item.id === cardObject.id);
+
+    if (existingCardIndex !== -1) {
+      currentShoppingCart[existingCardIndex].quantity += quantity;
+    }
+    else {
+      currentShoppingCart.push({
+        id: cardObject.id,
+        name: cardObject.name,
+        image: cardObject.image,
+        power: cardObject.power,
+        number: cardObject.number,
+        cost: cardObject.cost,
+        price: cardObject.price,
+        quantity: quantity
+      });
+    }
+  }
+
+  localStorage.setItem("shoppingCart", JSON.stringify(currentShoppingCart));
+  console.log("Carrito de compras actualizado:", currentShoppingCart);
 }
