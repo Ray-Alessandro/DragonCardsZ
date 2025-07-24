@@ -9,7 +9,10 @@ function getCards() {
       cards = data;
       weeklyCards = data.filter((card) => card.is_weekly);
       renderWeeklyCards(weeklyCards);
-    });
+    })
+    .catch((error) => {
+      showErrorAlert("Surgio un error al cargar las cartas: " + error)
+    })
 }
 
 getCards();
@@ -37,6 +40,7 @@ function renderWeeklyCards(cards) {
               <button class="btn btn-outline-secondary me-2 card-minus-btn">−</button>
               <input type="number" class="form-control text-center quantity" value="1" min="1" readonly style="max-width: 80px"/>
               <button class="btn btn-outline-secondary ms-2 card-plus-btn">+</button>
+              <button class="btn btn-outline-secondary ms-2 card-refresh-btn"><i class="bi bi-arrow-clockwise"></i></button>
             </div>
 
             <!-- Botón -->
@@ -79,7 +83,6 @@ function addCardEvent(cardElement) {
     if (selectedCard) {
       const quantity = parseInt(quantityCard.value);
       addCardToShoppingCart(selectedCard, quantity);
-      quantityCard.value = 1;
       console.log(`Carta añadida: ${selectedCard.name}, Cantidad: ${quantity}`);
     }
     else {
@@ -89,27 +92,44 @@ function addCardEvent(cardElement) {
 }
 
 function addCardToShoppingCart(cardObject, quantity) {
-  let currentShoppingCart = localStorage.getItem("shoppingCart");
-  currentShoppingCart = JSON.parse(currentShoppingCart);
+  try {
+    let currentShoppingCart = localStorage.getItem("shoppingCart");
+    currentShoppingCart = JSON.parse(currentShoppingCart);
 
-  if (!currentShoppingCart) {
-    currentShoppingCart = [];
+    if (!currentShoppingCart) {
+      currentShoppingCart = [];
 
-    currentShoppingCart.push(buildCartItem(cardObject, quantity));
-  }
-  else {
-    const existingCardIndex = currentShoppingCart.findIndex(item => item.id === cardObject.id);
-
-    if (existingCardIndex !== -1) {
-      currentShoppingCart[existingCardIndex].quantity += quantity;
-    }
-    else {
       currentShoppingCart.push(buildCartItem(cardObject, quantity));
-    }
-  }
+    } else {
+      const existingCardIndex = currentShoppingCart.findIndex(
+        (item) => item.id === cardObject.id
+      );
 
-  localStorage.setItem("shoppingCart", JSON.stringify(currentShoppingCart));
-  console.log("Carrito de compras actualizado:", currentShoppingCart);
+      if (existingCardIndex !== -1) {
+        currentShoppingCart[existingCardIndex].quantity += quantity;
+      } else {
+        currentShoppingCart.push(buildCartItem(cardObject, quantity));
+      }
+    }
+
+    localStorage.setItem("shoppingCart", JSON.stringify(currentShoppingCart));
+    console.log("Carrito de compras actualizado:", currentShoppingCart);
+
+    const toast = Toastify({
+      text: `Se añadio ${quantity} carta(s) al carrito`,
+      duration: 1200,
+      close: false,
+      stopOnFocus: false,
+      style: {
+        background: "green",
+      },
+      onClick: function () {
+        toast.hideToast();
+      },
+    }).showToast();
+  } catch {
+    showErrorAlert("Surgio un error al añadir al carrito");
+  }
 }
 
 function buildCartItem(card, quantity) {
@@ -123,4 +143,12 @@ function buildCartItem(card, quantity) {
     price: card.price,
     quantity: quantity
   }
+}
+
+function showErrorAlert(message) {
+  Swal.fire({
+    title: "Error",
+    text: message,
+    icon: "error",
+  });
 }

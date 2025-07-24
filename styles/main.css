@@ -72,3 +72,8 @@
 .carousel-control:active {
     transform: scaleY(1.01);
 }
+
+.card-refresh-btn {
+    position: absolute;
+    right: 20%;
+}
