@@ -17,7 +17,7 @@ function getCards() {
 
 getCards();
 
-let caurouselCards = document.getElementById("carousel-inner");
+let carouselCards = document.getElementById("carousel-inner");
 
 function renderWeeklyCards(cards) {
   cards.forEach((card, index) => {
@@ -40,7 +40,7 @@ function renderWeeklyCards(cards) {
               <button class="btn btn-outline-secondary me-2 card-minus-btn">−</button>
               <input type="number" class="form-control text-center quantity" value="1" min="1" readonly style="max-width: 80px"/>
               <button class="btn btn-outline-secondary ms-2 card-plus-btn">+</button>
-              <button class="btn btn-outline-secondary ms-2 card-refresh-btn"><i class="bi bi-arrow-clockwise"></i></button>
+              <button class="btn btn-secondary ms-2 card-refresh-btn"><i class="bi bi-arrow-clockwise"></i></button>
             </div>
 
             <!-- Botón -->
@@ -50,8 +50,8 @@ function renderWeeklyCards(cards) {
       </div>
     </div>`;
 
-    caurouselCards.appendChild(cardItem);
-
+    carouselCards.appendChild(cardItem);
+    
     addCardEvent(cardItem);
   });
 }
@@ -62,6 +62,7 @@ function addCardEvent(cardElement) {
   let plusBtn = cardElement.querySelector(".card-plus-btn");
   let minusBtn = cardElement.querySelector(".card-minus-btn");
   let quantityCard = cardElement.querySelector(".quantity");
+  let refreshBtn = cardElement.querySelector(".card-refresh-btn");
   let addToCartBtn = cardElement.querySelector(".card-add-btn");
 
   plusBtn.onclick = () => {
@@ -72,6 +73,10 @@ function addCardEvent(cardElement) {
     if (parseInt(quantityCard.value) > 1) {
       quantityCard.value = parseInt(quantityCard.value) - 1;
     }
+  }
+
+  refreshBtn.onclick = () => {
+    quantityCard.value = 1;
   }
 
   addToCartBtn.onclick = (e) => {
